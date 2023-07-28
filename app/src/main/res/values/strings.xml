@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">Red Manga</string>
+    <string name="lastest_release">Lastest Release</string>
+    <string name="most_viewed">Most Viewed</string>
+    <string name="new_manga">New Manga</string>
+    <string name="todo">TODO</string>
+    <string name="chapter">Chapter %1$s</string>
+
+    <string name="pengunjung">Pengunjung</string>
+    <string name="chapter_text">Chapter</string>
+    <string name="penulis">Penulis</string>
+    <string name="tanggal_release">Tanggal Rilis</string>
+    <string name="status">Status</string>
+    <string name="kategori">Kategori</string>
+    <string name="deskripsi">Deskripsi</string>
+    <string name="sedang_memproses">Sedang Memproses…</string>
+    <string name="admin">Admin</string>
+    <string name="double_press"> Tekan lagi untuk keluar </string>
+    <string name="login">Login Admin</string>
+    <string name="password">Password</string>
+    <string name="username">Username</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="data_kategori">Data Kategori</string>
+    <string name="data_manga">Data Manga</string>
+    <string name="tambah_data">Tambah Data %1$s</string>
+    <string name="ubah_data">Ubah Data %1$s</string>
+    <string name="cover">Cover</string>
+    <string name="tanggal_rilis">Tanggal Rilis</string>
+    <string name="judul_manga">Judul Manga</string>
+    <string name="nama_kategori">Nama Kategori</string>
+    <string name="txt_chapter">Chapter</string>
+    <string name="judul_chapter">Judul Chapter</string>
+    <string name="search">Search</string>
+    <string name="judul">Judul</string>
+    <string name="searching">Searching</string>
+
+
+    <array name="status_manga">
+        <item>On Going</item>
+        <item>Complete</item>
+    </array>
+</resources>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.redmanga.apps">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:resizeable="true"
+        android:smallScreens="true" />
+
+    <application
+        android:name=".RedMangaApp"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher_foreground"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:largeHeap="true"
+        android:hardwareAccelerated="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".ui.admin.KomikActivity"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.admin.ChapterActivity"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.admin.MangaActivity"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.admin.KategoriActivity"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.admin.PanelActivity"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.read.ReadMangaActivity"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.MainActivity"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.detail.DetailMangaActivity"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.SplashScreenActivity"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

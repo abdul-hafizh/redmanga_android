@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/searching"
+        android:icon="@drawable/ic_search_black_24dp"
+        app:showAsAction="always"
+        android:title="@string/searching" />
+
+    <item
+        android:id="@+id/admin"
+        android:icon="@drawable/ic_person"
+        app:showAsAction="always"
+        android:title="@string/admin" />
+
+    <item
+        android:id="@+id/dashboard"
+        android:icon="@drawable/ic_folder"
+        app:showAsAction="ifRoom"
+        android:title="@string/dashboard" />
+</menu>
