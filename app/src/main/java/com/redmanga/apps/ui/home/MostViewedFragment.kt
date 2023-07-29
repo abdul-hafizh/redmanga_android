@@ -10,11 +10,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-
 import com.redmanga.apps.R
 import com.redmanga.apps.data.db.entities.Manga
 import com.redmanga.apps.databinding.FragmentMostViewedBinding
+import com.redmanga.apps.ui.MainActivity
 import com.redmanga.apps.ui.detail.DetailMangaActivity
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
@@ -28,6 +30,7 @@ class MostViewedFragment : Fragment(),KodeinAware {
 
     private lateinit var mangaViewModel: MangaViewModel
     private val factory: MangaViewModelFactory by instance()
+    private val adapter by lazy { MangaAdapter(requireContext()) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,15 +39,29 @@ class MostViewedFragment : Fragment(),KodeinAware {
         val binding:FragmentMostViewedBinding = FragmentMostViewedBinding.inflate(layoutInflater)
         mangaViewModel = ViewModelProvider(this, factory).get(MangaViewModel::class.java)
 
-        val adapter = MangaAdapter(context!!)
         binding.rvManga.layoutManager = LinearLayoutManager(context)
         binding.rvManga.setHasFixedSize(true)
         binding.rvManga.adapter = adapter
-        subscribeUi(adapter)
+        subscribeUi()
         return binding.root
     }
 
-    private fun subscribeUi(adapter: MangaAdapter) {
+    override fun onStart() {
+        super.onStart()
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        EventBus.getDefault().unregister(this)
+    }
+
+    @Subscribe
+    fun onMessageEvent(event: MainActivity.MangaSearchEvent) {
+        adapter.submitList(event.manga)
+    }
+
+    private fun subscribeUi() {
         mangaViewModel.pagedListLiveDataMostViewManga.observe(viewLifecycleOwner, Observer { names ->
             if (names != null) adapter.submitList(names)
         })

@@ -12,9 +12,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.paging.PagedList
 import androidx.viewpager.widget.ViewPager
 import com.redmanga.apps.R
+import com.redmanga.apps.data.db.entities.Manga
 import com.redmanga.apps.data.preference.PreferenceProvider
 import com.redmanga.apps.databinding.ActivityMainBinding
 import com.redmanga.apps.databinding.DialogLoginBinding
@@ -24,6 +27,7 @@ import com.redmanga.apps.ui.home.*
 import com.redmanga.apps.utils.Coroutines
 import com.redmanga.apps.utils.showEditextError
 import com.redmanga.apps.utils.showInputError
+import org.greenrobot.eventbus.EventBus
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
 import org.kodein.di.generic.instance
@@ -69,6 +73,10 @@ class MainActivity : AppCompatActivity(), KodeinAware {
         adapter.addFragment(MostViewedFragment(), resources.getString(R.string.most_viewed))
         adapter.addFragment(LastestReleaseFragment(), resources.getString(R.string.lastest_release))
         viewPager.adapter = adapter
+        mangaViewModel.s.observe(this, Observer { names ->
+            print("datamanga ${names}")
+            EventBus.getDefault().post(MangaSearchEvent(names))
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -158,22 +166,14 @@ class MainActivity : AppCompatActivity(), KodeinAware {
         dialog.setCancelable(true)
 
         showEditextError(binding.lyJudul,binding.judul,"Judul")
-        showEditextError(binding.lyPenulis,binding.penulis,"Penulis")
+        showEditextError(binding.lyKategori,binding.kategori,"Kategori")
 
         binding.btnSearching.setOnClickListener {
             val judul: String = binding.judul.text.toString()
-            val penulis: String = binding.penulis.text.toString()
-
-            val cek = arrayOfNulls<Boolean>(2)
-            cek[0] = showInputError(binding.lyJudul, judul, "Judul")
-            cek[1] = showInputError(binding.lyPenulis, penulis, "Penulis")
-
-            if (!cek.contains(false)) {
-                Coroutines.main {
-                    dialog.dismiss()
-                    finish()
-                    startActivity(intent)
-                }
+            val kategori: String = binding.kategori.text.toString()
+            Coroutines.io {
+                dialog.dismiss()
+                mangaViewModel.pencarianManga(judul, kategori)
             }
         }
 
@@ -184,6 +184,8 @@ class MainActivity : AppCompatActivity(), KodeinAware {
         dialog.window!!.attributes = lp
         dialog.show()
     }
+
+    data class MangaSearchEvent (val manga: PagedList<Manga>)
 
     private fun logout() {
         val builder = AlertDialog.Builder(this)
